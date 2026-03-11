@@ -1,7 +1,7 @@
 // src/components/RegisterForm.jsx
 import React, { useState } from "react";
 
-function RegisterForm({ supabase, onSuccess }) {
+function RegisterForm({ onSuccess }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,27 +16,29 @@ function RegisterForm({ supabase, onSuccess }) {
     setError("");
 
     try {
-      // 1️⃣ Sign up with Supabase Auth
-      const { user, session, error: signUpError } = await supabase.auth.signUp({
-        email,
-        password,
+      const response = await fetch("http://localhost:8080/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          password,
+          role,
+        }),
       });
 
-      if (signUpError) throw signUpError;
+      if (!response.ok) {
+        throw new Error("Registration failed");
+      }
 
-      // 2️⃣ Insert additional info into 'profiles' table
-      const { data, error: dbError } = await supabase
-        .from("profiles") // make sure this table exists in Supabase
-        .insert([
-          { id: user.id, first_name: firstName, last_name: lastName, role },
-        ]);
+      const data = await response.json();
 
-      if (dbError) throw dbError;
+      if (onSuccess) onSuccess(data);
 
-      // 3️⃣ Trigger parent callback
-      if (onSuccess) onSuccess({ user, session });
-
-      // Optional: Clear form
+      // Clear form
       setFirstName("");
       setLastName("");
       setEmail("");
