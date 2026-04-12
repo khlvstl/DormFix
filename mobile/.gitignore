@@ -1,0 +1,20 @@
+# Gradle
+.gradle/
+build/
+
+# Android Studio
+.idea/
+*.iml
+local.properties
+*.iws
+*.ipr
+*.swp
+*~
+
+# Generated files
+bin/
+gen/
+
+# Other
+.DS_Store
+*.log

@@ -1,8 +1,9 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# Project docs (local / sensitive notes)
+/IMPLEMENTATION_SUMMARY.md
+/COMPLETE_OVERVIEW.md
+/AUTHENTICATION_API.md
+/TESTING_GUIDE.md
+/QUICK_REFERENCE.md
 
 ### STS ###
 .apt_generated
@@ -26,12 +27,8 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+!**/backend/main/**/build/
+!**/backend/test/**/build/
 
 ### VS Code ###
 .vscode/
-
-### Android (mobile/) ###
-mobile/local.properties
-mobile/.gradle/

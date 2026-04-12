@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <include domain="sharedpref" path="dormfix_prefs.xml"/>
+    <exclude domain="cache"/>
+    <exclude domain="code_cache"/>
+</full-backup-content>
