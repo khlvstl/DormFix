@@ -20,7 +20,9 @@ function RegisterForm({ onSuccess }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Accept": "application/json"
         },
+        credentials: "omit",
         body: JSON.stringify({
           firstName,
           lastName,
@@ -31,10 +33,15 @@ function RegisterForm({ onSuccess }) {
       });
 
       if (!response.ok) {
-        throw new Error("Registration failed");
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP ${response.status}: ${response.statusText}`);
       }
 
       const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.message || "Registration failed");
+      }
 
       if (onSuccess) onSuccess(data);
 
