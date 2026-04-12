@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Android (mobile/) ###
+mobile/local.properties
+mobile/.gradle/
