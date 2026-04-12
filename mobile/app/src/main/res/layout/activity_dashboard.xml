@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dashboard"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/tvRequestCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loading..."
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/btnCreateRequest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_request"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/btnViewRequests"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/view_requests"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/btnViewNotifications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/notifications"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:backgroundTint="@android:color/holo_red_light" />
+
+</LinearLayout>

@@ -1,23 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DormFix</string>
-    <string name="login_title">Sign in</string>
-    <string name="register_title">Create account</string>
-    <string name="welcome">Welcome</string>
+    <string name="welcome">Welcome to DormFix</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="full_name">Name</string>
-    <string name="name_hint">Use your first and last name (e.g. Jane Smith).</string>
-    <string name="password_rules">At least 6 characters.</string>
-    <string name="sign_in">Sign in</string>
-    <string name="sign_out">Sign out</string>
-    <string name="create_account">Create account</string>
-    <string name="no_account">No account? Register</string>
-    <string name="have_account">Already have an account? Sign in</string>
-    <string name="msg_login_success">Signed in successfully.</string>
-    <string name="msg_register_success">Account created successfully.</string>
-    <string name="err_email_required">Enter a valid email address.</string>
-    <string name="err_password_required">Enter your password.</string>
-    <string name="err_name_required">Enter your first and last name (at least two words, 2+ letters each).</string>
-    <string name="err_password_length">Password must be at least 6 characters.</string>
-    <string name="role_label">Role: %1$s</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="login_link">Already have an account? Login here</string>
+    <string name="register_link">Don\'t have an account? Register here</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="logout">Logout</string>
+    <string name="create_request">Create Request</string>
+    <string name="view_requests">View Requests</string>
+    <string name="notifications">Notifications</string>
 </resources>

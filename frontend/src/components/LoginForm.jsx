@@ -12,20 +12,30 @@ function LoginForm({ onSuccess }) {
     setError("");
 
     try {
-      const res = await fetch("/api/users/login", {
+      const res = await fetch("http://localhost:8080/api/users/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        credentials: "omit",
         body: JSON.stringify({ email, password })
       });
 
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || `HTTP ${res.status}: ${res.statusText}`);
+      }
+
       const data = await res.json();
 
-      if (!res.ok || !data.success) {
+      if (!data.success) {
         throw new Error(data.message || "Login failed");
       }
 
       onSuccess(data);
     } catch (err) {
+      console.error("Login error:", err);
       setError(err.message);
     } finally {
       setLoading(false);
