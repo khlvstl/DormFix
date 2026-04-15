@@ -6,6 +6,7 @@ import Dashboard from "./components/DashboardV2.jsx";
 import RequestPage from "./components/RequestPage.jsx";
 import ProfilePage from "./components/ProfilePage.jsx";
 import SubmitRequestPage from "./components/SubmitRequestPage.jsx";
+import StaffManagementPage from "./components/StaffManagementPage.jsx";
 import GoogleLoginButton from "./components/GoogleLoginButton.jsx";
 
 // ✅ Initialize Supabase once
@@ -141,6 +142,7 @@ function App() {
               onNavigate={handleNavigate}
               onCreateRequest={() => handleNavigate("submit")}
               activeTab="overview"
+              onLogout={handleLogout}
             />
           </section>
         )}
@@ -167,6 +169,15 @@ function App() {
               user={user}
               onCancel={() => handleNavigate("overview")}
               onCreated={handleRequestCreated}
+            />
+          </section>
+        )}
+
+        {user && page === "staff-management" && (
+          <section className="dashboard-card">
+            <StaffManagementPage
+              user={user}
+              onBack={() => handleNavigate("overview")}
             />
           </section>
         )}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function SubmitRequestPage({ user, onCancel, onCreated }) {
   const [title, setTitle] = useState("");
@@ -9,6 +9,18 @@ function SubmitRequestPage({ user, onCancel, onCreated }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [successTime, setSuccessTime] = useState(null);
+
+  // Auto-navigate to requests after successful submission
+  useEffect(() => {
+    if (successTime) {
+      const timer = setTimeout(() => {
+        console.log("Auto-navigating to requests...");
+        if (onCreated) onCreated({});
+      }, 2000); // 2 seconds delay
+      return () => clearTimeout(timer);
+    }
+  }, [successTime, onCreated]);
 
   const parseJsonOrText = async (response) => {
     const text = await response.text();
@@ -27,17 +39,26 @@ function SubmitRequestPage({ user, onCancel, onCreated }) {
     setError("");
     setSuccessMessage("");
 
+    // Validate user ID
+    if (!user?.id) {
+      setError("Error: User ID not found. Please log in again.");
+      setLoading(false);
+      return;
+    }
+
     const payload = {
       title,
       description,
       location,
-      status: "OPEN",
+      status: "PENDING",
       priority,
       imageUrl: imageUrl || null,
       resident: {
         id: user.id,
       },
     };
+
+    console.log("Submitting request with payload:", payload, "User ID:", user.id);
 
     try {
       const response = await fetch("http://localhost:8080/api/maintenance-requests", {
@@ -55,7 +76,9 @@ function SubmitRequestPage({ user, onCancel, onCreated }) {
       }
 
       const created = await parseJsonOrText(response);
-      setSuccessMessage("Request submitted successfully. You can view it on your dashboard.");
+      console.log("Request created successfully:", created);
+      setSuccessMessage("Request submitted successfully! Redirecting to your requests...");
+      setSuccessTime(Date.now()); // Trigger auto-navigation
       setTitle("");
       setDescription("");
       setLocation("");
@@ -64,6 +87,7 @@ function SubmitRequestPage({ user, onCancel, onCreated }) {
 
       if (onCreated) onCreated(created);
     } catch (err) {
+      console.error("Error submitting request:", err);
       setError(err.message || "Unable to submit request at this time.");
     } finally {
       setLoading(false);

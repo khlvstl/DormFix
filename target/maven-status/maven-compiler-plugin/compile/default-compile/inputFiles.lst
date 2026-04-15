@@ -14,14 +14,17 @@ C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\DormF
 C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\dto\AuthResponse.java
 C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\dto\GoogleLoginRequest.java
 C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\dto\LoginRequest.java
+C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\dto\MaintenanceRequestDTO.java
 C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\dto\RegistrationRequest.java
 C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\entity\Comment.java
 C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\entity\MaintenanceRequest.java
 C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\entity\Notification.java
+C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\entity\Remark.java
 C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\entity\User.java
 C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\repository\CommentRepository.java
 C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\repository\MaintenanceRequestRepository.java
 C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\repository\NotificationRepository.java
+C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\repository\RemarkRepository.java
 C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\repository\UserRepository.java
 C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\service\CommentService.java
 C:\Users\Ross Mikhail\Desktop\dormfix\backend\main\java\com\vestil\dormfix\service\MaintenanceRequestService.java

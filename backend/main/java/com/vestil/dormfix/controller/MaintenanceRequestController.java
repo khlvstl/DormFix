@@ -1,9 +1,11 @@
 package com.vestil.dormfix.controller;
 
 import com.vestil.dormfix.entity.MaintenanceRequest;
+import com.vestil.dormfix.entity.Remark;
 import com.vestil.dormfix.service.MaintenanceRequestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/maintenance-requests")
 @CrossOrigin(origins = "*")
+@Transactional
 public class MaintenanceRequestController {
     
     private final MaintenanceRequestService maintenanceRequestService;
@@ -106,5 +109,32 @@ public class MaintenanceRequestController {
     public ResponseEntity<Void> deleteRequest(@PathVariable Long id) {
         maintenanceRequestService.deleteRequest(id);
         return ResponseEntity.noContent().build();
+    }
+    
+    @PostMapping("/{requestId}/remarks")
+    public ResponseEntity<Remark> addRemark(@PathVariable Long requestId, 
+                                           @RequestParam Long staffId, 
+                                           @RequestBody RemarkRequest remarkRequest) {
+        Remark remark = maintenanceRequestService.addRemark(requestId, staffId, remarkRequest.getContent());
+        return new ResponseEntity<>(remark, HttpStatus.CREATED);
+    }
+    
+    @GetMapping("/{requestId}/remarks")
+    public ResponseEntity<List<Remark>> getRemarks(@PathVariable Long requestId) {
+        List<Remark> remarks = maintenanceRequestService.getRemarksByRequest(requestId);
+        return ResponseEntity.ok(remarks);
+    }
+    
+    // Simple DTO for remark requests
+    public static class RemarkRequest {
+        private String content;
+        
+        public String getContent() {
+            return content;
+        }
+        
+        public void setContent(String content) {
+            this.content = content;
+        }
     }
 }

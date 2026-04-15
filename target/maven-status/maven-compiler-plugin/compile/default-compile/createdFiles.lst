@@ -1,3 +1,4 @@
+com\vestil\dormfix\controller\MaintenanceRequestController$RemarkRequest.class
 com\vestil\dormfix\config\WebConfig.class
 com\vestil\dormfix\entity\Comment.class
 com\vestil\dormfix\dto\LoginRequest.class
@@ -20,11 +21,14 @@ com\vestil\dormfix\service\MaintenanceRequestService.class
 com\vestil\dormfix\repository\NotificationRepository.class
 com\vestil\dormfix\dto\AuthResponse.class
 com\vestil\dormfix\config\JpaConfig.class
+com\vestil\dormfix\dto\MaintenanceRequestDTO.class
 com\vestil\dormfix\service\CommentService.class
 com\vestil\dormfix\config\ExceptionConfig.class
+com\vestil\dormfix\entity\Remark.class
 com\vestil\dormfix\controller\UserController.class
 com\vestil\dormfix\repository\UserRepository.class
 com\vestil\dormfix\service\UserService.class
 com\vestil\dormfix\repository\MaintenanceRequestRepository.class
 com\vestil\dormfix\config\JacksonConfig.class
 com\vestil\dormfix\controller\MaintenanceRequestController.class
+com\vestil\dormfix\repository\RemarkRepository.class

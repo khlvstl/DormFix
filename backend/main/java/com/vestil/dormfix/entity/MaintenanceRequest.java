@@ -1,6 +1,8 @@
 package com.vestil.dormfix.entity;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -49,10 +51,18 @@ public class MaintenanceRequest {
     private LocalDateTime completedAt;
     
     @OneToMany(mappedBy = "maintenanceRequest", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    @JsonIgnore
     private Set<Comment> comments = new HashSet<>();
     
     @OneToMany(mappedBy = "maintenanceRequest", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    @JsonIgnore
     private Set<Notification> notifications = new HashSet<>();
+    
+    @OneToMany(mappedBy = "maintenanceRequest", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private Set<Remark> remarks = new HashSet<>();
     
     @PrePersist
     protected void onCreate() {
@@ -176,5 +186,13 @@ public class MaintenanceRequest {
     
     public void setNotifications(Set<Notification> notifications) {
         this.notifications = notifications;
+    }
+    
+    public Set<Remark> getRemarks() {
+        return remarks;
+    }
+    
+    public void setRemarks(Set<Remark> remarks) {
+        this.remarks = remarks;
     }
 }

@@ -1,6 +1,7 @@
 package com.vestil.dormfix.entity;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,15 +36,19 @@ public class User {
     private LocalDateTime updatedAt;
     
     @OneToMany(mappedBy = "resident", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("resident")
     private Set<MaintenanceRequest> submittedRequests = new HashSet<>();
     
     @OneToMany(mappedBy = "assignedStaff", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("assignedStaff")
     private Set<MaintenanceRequest> assignedRequests = new HashSet<>();
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("user")
     private Set<Comment> comments = new HashSet<>();
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("user")
     private Set<Notification> notifications = new HashSet<>();
     
     @PrePersist
