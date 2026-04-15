@@ -1,8 +1,11 @@
-import React, { useState } from "react";
-import { createClient } from "@supabase/supabase-js"; // ✅ Add this
+import React, { useEffect, useState } from "react";
+import { createClient } from "@supabase/supabase-js";
 import LoginForm from "./components/LoginForm.jsx";
 import RegisterForm from "./components/RegisterForm.jsx";
-import Dashboard from "./components/Dashboard.jsx";
+import Dashboard from "./components/DashboardV2.jsx";
+import RequestPage from "./components/RequestPage.jsx";
+import ProfilePage from "./components/ProfilePage.jsx";
+import SubmitRequestPage from "./components/SubmitRequestPage.jsx";
 import GoogleLoginButton from "./components/GoogleLoginButton.jsx";
 
 // ✅ Initialize Supabase once
@@ -12,18 +15,53 @@ const supabase = createClient(
 );
 
 function App() {
-  const [view, setView] = useState("login");
+  const [authView, setAuthView] = useState("login");
+  const [page, setPage] = useState("overview");
   const [user, setUser] = useState(null);
+  const [refreshRequests, setRefreshRequests] = useState(false);
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem("dormfix-user");
+    if (saved) {
+      try {
+        const savedUser = JSON.parse(saved);
+        setUser(savedUser);
+        setPage("overview");
+      } catch {
+        window.localStorage.removeItem("dormfix-user");
+      }
+    }
+  }, []);
 
   const handleAuthSuccess = (userData) => {
     setUser(userData);
-    setView("dashboard");
+    setPage("overview");
+    setAuthView("login");
+    window.localStorage.setItem("dormfix-user", JSON.stringify(userData));
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut(); // ✅ Optional: log out from Supabase
+    if (supabase?.auth?.signOut) {
+      await supabase.auth.signOut();
+    }
     setUser(null);
-    setView("login");
+    setPage("overview");
+    setAuthView("login");
+    window.localStorage.removeItem("dormfix-user");
+  };
+
+  const refreshDashboardRequests = () => {
+    setRefreshRequests((current) => !current);
+  };
+
+  const handleNavigate = (targetPage) => {
+    const normalized = targetPage === "dashboard" ? "overview" : targetPage;
+    setPage(normalized);
+  };
+
+  const handleRequestCreated = () => {
+    refreshDashboardRequests();
+    setPage("requests");
   };
 
   return (
@@ -44,28 +82,28 @@ function App() {
               <div className="auth-left">
                 <div className="tabs">
                   <button
-                    className={view === "login" ? "tab active" : "tab"}
-                    onClick={() => setView("login")}
+                    className={authView === "login" ? "tab active" : "tab"}
+                    onClick={() => setAuthView("login")}
                   >
                     Login
                   </button>
                   <button
-                    className={view === "register" ? "tab active" : "tab"}
-                    onClick={() => setView("register")}
+                    className={authView === "register" ? "tab active" : "tab"}
+                    onClick={() => setAuthView("register")}
                   >
                     Register
                   </button>
                 </div>
 
-                {view === "login" && (
+                {authView === "login" && (
                   <>
-                    <LoginForm supabase={supabase} onSuccess={handleAuthSuccess} />
+                    <LoginForm onSuccess={handleAuthSuccess} />
                     <GoogleLoginButton supabase={supabase} onSuccess={handleAuthSuccess} />
                   </>
                 )}
 
-                {view === "register" && (
-                  <RegisterForm supabase={supabase} onSuccess={handleAuthSuccess} />
+                {authView === "register" && (
+                  <RegisterForm onSuccess={handleAuthSuccess} />
                 )}
               </div>
 
@@ -94,9 +132,42 @@ function App() {
           </section>
         )}
 
-        {user && (
+        {user && page === "overview" && (
           <section className="dashboard-card">
-            <Dashboard user={user} />
+            <Dashboard
+              user={user}
+              refreshKey={refreshRequests}
+              onRefresh={refreshDashboardRequests}
+              onNavigate={handleNavigate}
+              onCreateRequest={() => handleNavigate("submit")}
+              activeTab="overview"
+            />
+          </section>
+        )}
+
+        {user && page === "requests" && (
+          <section className="dashboard-card">
+            <RequestPage
+              user={user}
+              refreshKey={refreshRequests}
+              onBack={() => handleNavigate("overview")}
+            />
+          </section>
+        )}
+
+        {user && page === "profile" && (
+          <section className="dashboard-card">
+            <ProfilePage user={user} onBack={() => handleNavigate("overview")} />
+          </section>
+        )}
+
+        {user && page === "submit" && (
+          <section className="dashboard-card">
+            <SubmitRequestPage
+              user={user}
+              onCancel={() => handleNavigate("overview")}
+              onCreated={handleRequestCreated}
+            />
           </section>
         )}
       </main>
