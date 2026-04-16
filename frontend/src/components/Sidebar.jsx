@@ -47,7 +47,8 @@ function Sidebar({ user, activePage, onNavigate, onLogout }) {
 
       <div className="sidebar-footer">
         <button className="logout-btn" onClick={onLogout}>
-          🚪 Logout
+          <span className="logout-icon">🚪</span>
+          <span className="logout-label">Logout</span>
         </button>
       </div>
     </aside>

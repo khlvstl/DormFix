@@ -138,25 +138,26 @@ function RequestPage({ user, onBack, refreshKey }) {
   };
 
   return (
-    <section style={{ padding: "2rem", maxWidth: "1200px", margin: "0 auto" }}>
+    <div className="dashboard-container">
+      <button className="back-button" onClick={() => onBack?.()}>
+        <span>←</span> Back to home
+      </button>
+
       {/* Header */}
-      <div style={{ marginBottom: "2rem", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-        <div>
-          <p style={{ margin: "0 0 0.5rem", fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "#64748b", fontWeight: 600 }}>
-            Your Requests
-          </p>
-          <h2 style={{ margin: "0 0 0.5rem", fontSize: "1.75rem", color: "#0f172a" }}>Request Tracker</h2>
-          <p style={{ margin: "0", color: "#64748b", maxWidth: "600px" }}>
-            Review the status of each maintenance ticket and track updates in real-time.
-          </p>
+      <div className="dashboard-header">
+        <div className="header-content">
+          <h1>Request Tracker 📋</h1>
+          <p>Review the status of your maintenance tickets and track updates in real-time</p>
         </div>
-        <button 
-          className="secondary-btn" 
-          onClick={onBack}
-          style={{ padding: "0.75rem 1.5rem" }}
-        >
-          ← Back
-        </button>
+        <div className="header-avatar">
+          <div className="avatar-circle">
+            {user?.firstName?.charAt(0)}{user?.lastName?.charAt(0)}
+          </div>
+          <div className="user-info">
+            <div className="user-role">{role.toUpperCase()}</div>
+            <div className="user-email">{user?.email}</div>
+          </div>
+        </div>
       </div>
 
       {error && (
@@ -388,7 +389,7 @@ function RequestPage({ user, onBack, refreshKey }) {
           )}
         </div>
       )}
-    </section>
+    </div>
   );
 }
 

@@ -64,14 +64,15 @@ const Sidebar = ({ role, onNavigate, currentTab, onLogout }) => {
 
       <div className="sidebar-footer">
         <button className="logout-btn" onClick={onLogout}>
-          🚪 Logout
+          <span className="nav-icon">🚪</span>
+          <span className="nav-label">Logout</span>
         </button>
       </div>
     </aside>
   );
 };
 
-const ProfileBanner = ({ user, role, onNavigate }) => {
+const ProfileBanner = ({ user, role, onNavigate, onLogout }) => {
   const firstName = user?.firstName || user?.email?.split("@")[0] || "Guest";
   
   return (
@@ -83,9 +84,14 @@ const ProfileBanner = ({ user, role, onNavigate }) => {
           <strong>{user.email}</strong>
         </div>
       </div>
-      <button className="secondary-btn profile-btn" onClick={() => onNavigate("profile")}>
-        👤 View Profile
-      </button>
+      <div style={{ display: "flex", gap: "0.75rem" }}>
+        <button className="secondary-btn profile-btn" onClick={() => onNavigate("profile")}>
+          👤 View Profile
+        </button>
+        <button className="logout-btn-dashboard" onClick={onLogout}>
+          🚪 Logout
+        </button>
+      </div>
     </div>
   );
 };
@@ -301,7 +307,7 @@ function DashboardV2({ user, onCreateRequest, refreshKey, onNavigate, activeTab 
       <div className="dashboard-content" style={{ marginLeft: "260px", width: "calc(100% - 260px)" }}>
         {fetchError && <div className="error">{fetchError}</div>}
         
-        <ProfileBanner user={user} role={role} onNavigate={onNavigate} />
+        <ProfileBanner user={user} role={role} onNavigate={onNavigate} onLogout={onLogout} />
         
         <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
           <h1 style={{ margin: "0 0 0.5rem", fontSize: "1.75rem", color: "#0f172a" }}>

@@ -82,7 +82,7 @@ const QuickActionsCard = ({ role, onSubmitRequest }) => {
   );
 };
 
-function Dashboard({ user, onNavigate }) {
+function Dashboard({ user, onNavigate, onLogout }) {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -141,19 +141,33 @@ function Dashboard({ user, onNavigate }) {
 
   return (
     <div className="dashboard-container">
+      <button className="back-button" onClick={() => onNavigate?.("overview")}>
+        <span>←</span> Back to home
+      </button>
+
       {/* Welcome Header */}
       <div className="dashboard-header">
         <div className="header-content">
           <h1>Welcome back, {user?.firstName}! 👋</h1>
           <p>{isResident ? "Manage your maintenance requests and track progress in real-time" : "Monitor and manage all resident maintenance requests"}</p>
         </div>
-        <div className="header-avatar">
-          <div className="avatar-circle">
-            {user?.firstName?.charAt(0)}{user?.lastName?.charAt(0)}
+        <div className="header-actions">
+          <div className="header-avatar">
+            <div className="avatar-circle">
+              {user?.firstName?.charAt(0)}{user?.lastName?.charAt(0)}
+            </div>
+            <div className="user-info">
+              <div className="user-role">{user?.role?.toUpperCase()}</div>
+              <div className="user-email">{user?.email}</div>
+            </div>
           </div>
-          <div className="user-info">
-            <div className="user-role">{user?.role?.toUpperCase()}</div>
-            <div className="user-email">{user?.email}</div>
+          <div className="header-buttons">
+            <button className="view-profile-btn" onClick={() => onNavigate?.("profile")}>
+              👤 View Profile
+            </button>
+            <button className="logout-btn-dashboard" onClick={onLogout}>
+              🚪 Logout
+            </button>
           </div>
         </div>
       </div>

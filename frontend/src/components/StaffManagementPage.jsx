@@ -244,6 +244,10 @@ function StaffManagementPage({ user, onBack }) {
 
   return (
     <div className="dashboard-container">
+      <button className="back-button" onClick={() => onBack?.()}>
+        <span>←</span> Back to home
+      </button>
+
       {/* Header */}
       <div className="dashboard-header">
         <div className="header-content">
@@ -628,7 +632,7 @@ function StaffManagementPage({ user, onBack }) {
           )}
         </div>
       )}
-    </section>
+    </div>
   );
 }
 

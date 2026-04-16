@@ -67,15 +67,6 @@ function App() {
 
   return (
     <div className="app">
-      <header className="app-header">
-        <h1>DORMFIX</h1>
-        {user && (
-          <button className="link-button" onClick={handleLogout}>
-            Logout
-          </button>
-        )}
-      </header>
-
       <main className="app-main">
         {!user && (
           <section className="auth-card">
